@@ -1,0 +1,95 @@
+---
+// website/src/pages/resources.astro
+import { getCollection } from 'astro:content';
+import PageLayout from '../layouts/PageLayout.astro';
+import Card from '../components/ui/Card.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+
+const resources = (await getCollection('resources')).sort((a, b) =>
+  b.data.date.getTime() - a.data.date.getTime()
+);
+
+const formats = [...new Set(resources.map(r => r.data.format))].sort();
+const topics = [...new Set(resources.flatMap(r => r.data.topics || []))].sort();
+---
+<PageLayout title="Resources" description="Free downloadable models, checklists, templates and worksheets. Use them yourself or hire Justin to adapt them.">
+  <section class="py-16 md:py-20">
+    <div class="mx-auto max-w-[1200px] px-6">
+      <SectionHeading
+        title="Resources"
+        subtitle="Free tools you can download and use right now."
+      />
+
+      <!-- Filter bar -->
+      <div class="mb-8 flex flex-wrap gap-2" id="filter-bar">
+        <button class="filter-btn active rounded-full bg-teal px-4 py-1.5 text-xs font-medium text-white" data-filter="all">
+          All
+        </button>
+        {formats.map(f => (
+          <button class="filter-btn rounded-full bg-grey-200 px-4 py-1.5 text-xs font-medium text-grey-500 hover:bg-teal hover:text-white transition-colors" data-filter={`format:${f}`}>
+            {f}
+          </button>
+        ))}
+        {topics.map(t => (
+          <button class="filter-btn rounded-full bg-grey-200 px-4 py-1.5 text-xs font-medium text-grey-500 hover:bg-teal hover:text-white transition-colors" data-filter={`topic:${t}`}>
+            {t}
+          </button>
+        ))}
+      </div>
+
+      <!-- Resource grid -->
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3" id="resource-grid">
+        {resources.map(r => (
+          <div class="resource-card" data-format={r.data.format} data-topics={(r.data.topics || []).join(',')}>
+            <Card>
+              <span class="inline-block rounded-full bg-gold-light px-3 py-1 text-xs font-medium text-gold mb-3">
+                {r.data.format}
+              </span>
+              <h3 class="font-heading text-lg font-bold text-charcoal">{r.data.title}</h3>
+              <p class="mt-2 text-sm text-grey-500">{r.data.description}</p>
+              {r.data.downloadUrl ? (
+                <a href={r.data.downloadUrl} class="mt-4 inline-block text-sm font-medium text-teal hover:text-teal-dark">
+                  Download &darr;
+                </a>
+              ) : (
+                <span class="mt-4 inline-block text-sm text-grey-500">[Coming soon]</span>
+              )}
+            </Card>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<script>
+  const buttons = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.resource-card');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => {
+        b.classList.remove('active', 'bg-teal', 'text-white');
+        b.classList.add('bg-grey-200', 'text-grey-500');
+      });
+      btn.classList.add('active', 'bg-teal', 'text-white');
+      btn.classList.remove('bg-grey-200', 'text-grey-500');
+
+      const filter = (btn as HTMLElement).dataset.filter || 'all';
+
+      cards.forEach(card => {
+        const el = card as HTMLElement;
+        if (filter === 'all') {
+          el.style.display = '';
+        } else if (filter.startsWith('format:')) {
+          const val = filter.replace('format:', '');
+          el.style.display = el.dataset.format === val ? '' : 'none';
+        } else if (filter.startsWith('topic:')) {
+          const val = filter.replace('topic:', '');
+          const topics = (el.dataset.topics || '').split(',');
+          el.style.display = topics.includes(val) ? '' : 'none';
+        }
+      });
+    });
+  });
+</script>
