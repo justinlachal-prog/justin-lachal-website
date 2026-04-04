@@ -24,6 +24,23 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     {ogImage && <meta property="og:image" content={ogImage} />}
+    <!-- Structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Justin Lachal",
+      "description": "Independent accounting, costing and strategy advice for consequential decisions.",
+      "url": Astro.site?.toString(),
+      "founder": {
+        "@type": "Person",
+        "name": "Justin Lachal",
+        "jobTitle": "Independent Adviser",
+        "alumniOf": "La Trobe University"
+      },
+      "areaServed": "Australia",
+      "serviceType": ["Financial Consulting", "Post-Implementation Reviews", "Strategy Consulting"]
+    })} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet" />
