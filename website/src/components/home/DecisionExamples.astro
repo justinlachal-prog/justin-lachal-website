@@ -1,11 +1,13 @@
 ---
 // website/src/components/home/DecisionExamples.astro
+import { url } from '../../utils/url';
+
 const questions = [
-  { text: 'Caravan or motels?', href: '/spreadsheet-says/caravan-vs-motels' },
-  { text: 'Outsource finance or build the team?', href: '/spreadsheet-says/outsource-vs-internal' },
-  { text: 'Buy the software or wait?', href: '/spreadsheet-says/buy-now-vs-wait' },
-  { text: 'Did the project deliver its promised benefits?', href: '/case-notes/post-implementation-review-example' },
-  { text: 'Which measures actually matter?', href: '/services/performance' },
+  { text: 'Caravan or motels?', href: url('/spreadsheet-says/caravan-vs-motels') },
+  { text: 'Outsource finance or build the team?', href: url('/spreadsheet-says/outsource-vs-internal') },
+  { text: 'Buy the software or wait?', href: url('/spreadsheet-says/buy-now-vs-wait') },
+  { text: 'Did the project deliver its promised benefits?', href: url('/case-notes/post-implementation-review-example') },
+  { text: 'Which measures actually matter?', href: url('/services/performance') },
 ];
 ---
 <section class="bg-white py-12">
