@@ -37,12 +37,15 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
 }
 
-a {
+a:not([class*="text-"]) {
   color: var(--color-teal);
+}
+
+a {
   text-decoration: none;
 }
 
-a:hover {
+a:not([class*="text-"]):hover {
   color: var(--color-teal-dark);
 }
 
