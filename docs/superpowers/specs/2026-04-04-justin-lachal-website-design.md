@@ -72,10 +72,10 @@ Build a professional consulting website for Justin Lachal, a fellow-qualified ac
 | Hosting | GitHub Pages | Free, git-push deploys via GitHub Actions, custom domain support. |
 | CI/CD | GitHub Actions | Build Astro on push to main, deploy to GitHub Pages. |
 | Contact form | Formspree (free tier) | 50 submissions/month — sufficient for expected volume. No backend needed. Free tier does not support file uploads — see Section 6.10. |
-
-**GitHub Pages deployment note:** `astro.config.mjs` must set `site` to the final URL. If deploying to a project repo without a custom domain (e.g., `https://<user>.github.io/<repo>/`), also set `base: '/<repo>'`. The GitHub Actions workflow must handle both scenarios. Once a custom domain is configured via the repo's Pages settings and CNAME file, `base` should be removed.
 | Spreadsheet models | Embedded Google Sheets (view-only) + download links | Justin already works in spreadsheets. No need to rebuild as web apps. |
 | Future CMS | Decap CMS (optional, add later) | Web UI for Justin to add content without touching code. |
+
+**GitHub Pages deployment note:** `astro.config.mjs` must set `site` to the final URL. If deploying to a project repo without a custom domain (e.g., `https://<user>.github.io/<repo>/`), also set `base: '/<repo>'`. The GitHub Actions workflow must handle both scenarios. Once a custom domain is configured via the repo's Pages settings and CNAME file, `base` should be removed.
 
 ---
 
@@ -92,7 +92,7 @@ src/content/
   articles/           # Essays, public thinking
 ```
 
-Note: workshops/talks content lives on the static `/services/workshops` page, not in a separate content collection. A `workshops/` collection can be added later if Justin starts publishing enough events to warrant a listing page.
+Note: All six services — including workshops — are entries in the `services/` content collection. They all render via the same dynamic route (`/services/[slug]`). There is no separate `workshops/` content collection. If Justin later publishes enough individual events to warrant their own listing page, a `workshops/` collection can be added then.
 
 ### Frontmatter Schema (common fields)
 
@@ -524,6 +524,7 @@ justin-lachal-website/
 │   │   └── spreadsheet-screenshots/
 │   └── favicon.svg
 ├── src/
+│   ├── content.config.ts           # Astro 5 content collection schemas (must be at src/ root)
 │   ├── components/
 │   │   ├── layout/
 │   │   │   ├── Header.astro
@@ -593,8 +594,6 @@ justin-lachal-website/
 │   │   └── faq.astro
 │   └── styles/
 │       └── global.css               # Tailwind base + custom tokens
-├── src/
-│   └── content.config.ts           # Astro 5 content collection schemas (must be at src/ root)
 ├── astro.config.mjs
 ├── package.json
 ├── tsconfig.json
