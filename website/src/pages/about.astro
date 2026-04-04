@@ -1,0 +1,90 @@
+---
+// website/src/pages/about.astro
+import PageLayout from '../layouts/PageLayout.astro';
+import Button from '../components/ui/Button.astro';
+import { url } from '../utils/url';
+---
+<PageLayout title="About" description="Justin Lachal — accountant, professor, adviser. 30 years of helping people make better financial decisions.">
+  <article>
+    <!-- Hero -->
+    <section class="py-16 md:py-20">
+      <div class="mx-auto max-w-[1200px] px-6">
+        <div class="flex flex-col gap-12 md:flex-row items-start">
+          <div class="flex-1">
+            <h1 class="font-heading text-3xl font-bold text-charcoal md:text-4xl">
+              Accountant. Professor. Adviser.
+            </h1>
+            <div class="mt-8 space-y-4 text-grey-500 max-w-[600px]">
+              <p>[PLACEHOLDER: Justin's story — the accountant years. Career narrative describing his early career and building deep expertise in financial analysis, costing, and commercial decision-making.]</p>
+              <p>[PLACEHOLDER: The professor years. His time at La Trobe University teaching accounting, developing a reputation for making finance accessible and practical.]</p>
+              <p>[PLACEHOLDER: The adviser years. Why he moved into independent consulting, his philosophy of transparency and generosity, and what drives him today.]</p>
+            </div>
+          </div>
+          <div class="w-64 h-80 rounded-lg bg-grey-200 flex items-center justify-center text-grey-500 text-sm shrink-0">
+            [PLACEHOLDER: Portrait]
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why free tools -->
+    <section class="bg-white py-16">
+      <div class="mx-auto max-w-[1200px] px-6">
+        <h2 class="font-heading text-2xl font-bold text-charcoal">Why I give tools away for free</h2>
+        <p class="mt-4 text-grey-500 max-w-[600px]">
+          [PLACEHOLDER: Justin's explanation of his open-source consulting philosophy — the tools are free because better decisions shouldn't be trapped behind a sales conversation. If you want help interpreting the results or adapting the model, that's when you hire me.]
+        </p>
+      </div>
+    </section>
+
+    <!-- What I believe -->
+    <section class="py-16">
+      <div class="mx-auto max-w-[1200px] px-6">
+        <h2 class="font-heading text-2xl font-bold text-charcoal">What I believe</h2>
+        <ul class="mt-6 space-y-3 max-w-[600px]">
+          <li class="flex items-start gap-3 text-grey-500">
+            <span class="text-teal mt-1">&#10003;</span>
+            Good decisions deserve clear assumptions
+          </li>
+          <li class="flex items-start gap-3 text-grey-500">
+            <span class="text-teal mt-1">&#10003;</span>
+            Public money deserves serious thought
+          </li>
+          <li class="flex items-start gap-3 text-grey-500">
+            <span class="text-teal mt-1">&#10003;</span>
+            Spreadsheets are useful servants and bad masters
+          </li>
+          <li class="flex items-start gap-3 text-grey-500">
+            <span class="text-teal mt-1">&#10003;</span>
+            Finance should help people decide, not intimidate them
+          </li>
+          <li class="flex items-start gap-3 text-grey-500">
+            <span class="text-teal mt-1">&#10003;</span>
+            Reviews should teach, not punish
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Ethics -->
+    <section class="bg-teal-light py-16">
+      <div class="mx-auto max-w-[1200px] px-6">
+        <h2 class="font-heading text-2xl font-bold text-charcoal">Ethics and independence</h2>
+        <p class="mt-4 text-grey-500 max-w-[600px]">
+          [PLACEHOLDER: Justin's commitment to the principles of APES 110 — integrity, objectivity, professional competence and due care, confidentiality, and professional behaviour — translated into plain English.]
+        </p>
+      </div>
+    </section>
+
+    <!-- Downloads -->
+    <section class="py-16">
+      <div class="mx-auto max-w-[1200px] px-6">
+        <h2 class="font-heading text-2xl font-bold text-charcoal">Downloads</h2>
+        <div class="mt-6 flex flex-wrap gap-4">
+          <Button href={url('/downloads/cv-justin-lachal.pdf')} variant="secondary">Download CV (PDF)</Button>
+          <Button href={url('/downloads/capability-statement.pdf')} variant="secondary">Capability Statement (PDF)</Button>
+        </div>
+      </div>
+    </section>
+  </article>
+</PageLayout>
