@@ -1,0 +1,26 @@
+---
+// website/src/components/home/Hero.astro
+import Button from '../ui/Button.astro';
+import { url } from '../../utils/url';
+---
+<section class="py-20 md:py-28">
+  <div class="mx-auto max-w-[1200px] px-6">
+    <div class="flex flex-col items-center gap-12 md:flex-row">
+      <div class="flex-1">
+        <h1 class="font-heading text-4xl font-bold text-charcoal md:text-4xl leading-tight">
+          Better financial judgment for real-world decisions
+        </h1>
+        <p class="mt-6 text-lg text-grey-500 max-w-[540px]">
+          Justin helps boards, councils, leaders and organisations make better decisions through practical costing, post-implementation reviews, performance reviews and clear strategic thinking.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <Button href={url('/contact')}>Work with Justin</Button>
+          <Button href={url('/spreadsheet-says')} variant="secondary">Explore free tools</Button>
+        </div>
+      </div>
+      <div class="w-64 h-64 md:w-80 md:h-80 rounded-full bg-grey-200 flex items-center justify-center text-grey-500 text-sm shrink-0">
+        [PLACEHOLDER: Headshot]
+      </div>
+    </div>
+  </div>
+</section>

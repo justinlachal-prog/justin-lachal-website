@@ -1,0 +1,28 @@
+---
+// website/src/components/home/HowHeWorks.astro
+import SectionHeading from '../ui/SectionHeading.astro';
+
+const steps = [
+  { number: '1', title: 'Frame the decision' },
+  { number: '2', title: 'Surface the assumptions' },
+  { number: '3', title: 'Model what can be modeled' },
+  { number: '4', title: 'Name what cannot be modeled' },
+  { number: '5', title: 'Recommend action' },
+  { number: '6', title: 'Review the outcome later' },
+];
+---
+<section class="py-20">
+  <div class="mx-auto max-w-[1200px] px-6">
+    <SectionHeading title="How Justin works" />
+    <div class="grid gap-4 md:grid-cols-3 lg:grid-cols-6">
+      {steps.map(step => (
+        <div class="text-center">
+          <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-teal text-white font-bold">
+            {step.number}
+          </div>
+          <p class="mt-3 text-sm font-medium text-charcoal">{step.title}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

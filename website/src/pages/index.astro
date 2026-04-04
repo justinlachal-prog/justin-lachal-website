@@ -1,11 +1,26 @@
 ---
+// website/src/pages/index.astro
 import PageLayout from '../layouts/PageLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import CredibilityStrip from '../components/ui/CredibilityStrip.astro';
+import DecisionExamples from '../components/home/DecisionExamples.astro';
+import ServicePillars from '../components/home/ServicePillars.astro';
+import SpreadsheetTeaser from '../components/home/SpreadsheetTeaser.astro';
+import HowHeWorks from '../components/home/HowHeWorks.astro';
+import ResourcesPreview from '../components/home/ResourcesPreview.astro';
+import PublicWorkPreview from '../components/home/PublicWorkPreview.astro';
+import PricingPhilosophy from '../components/home/PricingPhilosophy.astro';
+import ContactCTA from '../components/shared/ContactCTA.astro';
 ---
-<PageLayout title="Home">
-  <section class="mx-auto max-w-[1200px] px-6 py-20">
-    <h1 class="font-heading text-4xl font-bold text-charcoal">
-      Better financial judgment for real-world decisions
-    </h1>
-    <p class="mt-4 text-lg text-grey-500">Site under construction.</p>
-  </section>
+<PageLayout title="Home" description="Justin Lachal — better financial judgment for real-world decisions. Independent accounting, costing and strategy advice.">
+  <Hero />
+  <CredibilityStrip />
+  <DecisionExamples />
+  <ServicePillars />
+  <SpreadsheetTeaser />
+  <HowHeWorks />
+  <ResourcesPreview />
+  <PublicWorkPreview />
+  <PricingPhilosophy />
+  <ContactCTA />
 </PageLayout>

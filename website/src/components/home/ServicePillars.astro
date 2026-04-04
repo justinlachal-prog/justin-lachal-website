@@ -1,0 +1,28 @@
+---
+// website/src/components/home/ServicePillars.astro
+import Card from '../ui/Card.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { url } from '../../utils/url';
+
+const services = [
+  { title: 'Costing and commercial decisions', desc: 'Test the decision before you commit.', href: url('/services/costing'), icon: 'calculator' },
+  { title: 'Post-implementation reviews', desc: 'Find out what actually happened.', href: url('/services/reviews'), icon: 'search' },
+  { title: 'Performance and governance reviews', desc: 'Independent reviews of controls and reporting.', href: url('/services/performance'), icon: 'clipboard-check' },
+  { title: 'Strategy and decision support', desc: 'Simple tools for difficult choices.', href: url('/services/strategy'), icon: 'compass' },
+  { title: 'Finance function strategy', desc: 'Build a finance function that helps people decide.', href: url('/services/finance-function'), icon: 'building-2' },
+  { title: 'Workshops and speaking', desc: 'Teaching, workshops and public talks.', href: url('/services/workshops'), icon: 'presentation' },
+];
+---
+<section class="py-20">
+  <div class="mx-auto max-w-[1200px] px-6">
+    <SectionHeading title="How Justin helps" subtitle="Six areas of independent advice" />
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {services.map(s => (
+        <Card href={s.href}>
+          <h3 class="font-heading text-lg font-bold text-charcoal">{s.title}</h3>
+          <p class="mt-2 text-sm text-grey-500">{s.desc}</p>
+        </Card>
+      ))}
+    </div>
+  </div>
+</section>

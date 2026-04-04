@@ -1,0 +1,35 @@
+---
+// website/src/components/home/ResourcesPreview.astro
+import { getCollection } from 'astro:content';
+import Card from '../ui/Card.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { url } from '../../utils/url';
+
+const resources = (await getCollection('resources'))
+  .filter(r => r.data.featured)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+---
+{resources.length > 0 && (
+  <section class="bg-white py-16">
+    <div class="mx-auto max-w-[1200px] px-6">
+      <SectionHeading title="Free resources" subtitle="Download and use right now." />
+      <div class="grid gap-6 md:grid-cols-3">
+        {resources.map(r => (
+          <Card>
+            <span class="inline-block rounded-full bg-gold-light px-3 py-1 text-xs font-medium text-gold mb-3">
+              {r.data.format}
+            </span>
+            <h3 class="font-heading text-lg font-bold text-charcoal">{r.data.title}</h3>
+            <p class="mt-2 text-sm text-grey-500">{r.data.description}</p>
+          </Card>
+        ))}
+      </div>
+      <p class="mt-8 text-center">
+        <a href={url('/resources')} class="text-sm font-medium text-teal hover:text-teal-dark">
+          Browse all resources &rarr;
+        </a>
+      </p>
+    </div>
+  </section>
+)}

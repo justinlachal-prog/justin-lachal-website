@@ -1,0 +1,21 @@
+---
+// website/src/components/home/DecisionExamples.astro
+const questions = [
+  'Caravan or motels?',
+  'Outsource finance or build the team?',
+  'Buy the software or wait?',
+  'Did the project deliver its promised benefits?',
+  'Which measures actually matter?',
+];
+---
+<section class="bg-white py-12">
+  <div class="mx-auto max-w-[1200px] px-6">
+    <div class="flex flex-wrap justify-center gap-3">
+      {questions.map(q => (
+        <span class="rounded-full border border-grey-200 bg-cream px-5 py-2 text-sm text-charcoal font-medium">
+          {q}
+        </span>
+      ))}
+    </div>
+  </div>
+</section>

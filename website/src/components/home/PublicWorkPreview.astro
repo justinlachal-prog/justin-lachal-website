@@ -1,0 +1,35 @@
+---
+// website/src/components/home/PublicWorkPreview.astro
+import { getCollection } from 'astro:content';
+import ContentCard from '../shared/ContentCard.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { url } from '../../utils/url';
+
+const articles = await getCollection('articles');
+const caseNotes = await getCollection('case-notes');
+
+const allWork = [
+  ...articles.map(a => ({ ...a, type: 'article' as const })),
+  ...caseNotes.map(c => ({ ...c, type: 'case-note' as const })),
+]
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+---
+{allWork.length > 0 && (
+  <section class="py-16">
+    <div class="mx-auto max-w-[1200px] px-6">
+      <SectionHeading title="Public work" subtitle="Latest thinking, models, and case notes." />
+      <div class="grid gap-6 md:grid-cols-3">
+        {allWork.map(item => (
+          <ContentCard
+            title={item.data.title}
+            description={item.data.description}
+            href={url(item.type === 'article' ? `/public-work/${item.id}` : `/case-notes/${item.id}`)}
+            topics={item.data.topics}
+            date={item.data.date}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+)}
