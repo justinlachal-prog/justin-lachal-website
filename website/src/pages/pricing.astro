@@ -1,0 +1,39 @@
+---
+// website/src/pages/pricing.astro
+import PageLayout from '../layouts/PageLayout.astro';
+import Card from '../components/ui/Card.astro';
+import ContactCTA from '../components/shared/ContactCTA.astro';
+
+const tiers = [
+  { name: 'Quick question', desc: 'Short call or written answer to a specific question.', note: 'Fixed fee' },
+  { name: 'Spreadsheet review', desc: 'Review and annotate an existing financial model.', note: 'Fixed fee' },
+  { name: 'Decision memo', desc: 'Assumptions sheet, working model, and written recommendation.', note: 'Fixed fee' },
+  { name: 'Review sprint', desc: 'Focused 1–2 week review engagement with findings report.', note: 'Scoped fee' },
+  { name: 'Workshop day', desc: 'Full-day facilitated session for your board or leadership team.', note: 'Fixed fee' },
+  { name: 'Full review project', desc: 'Scoped multi-week engagement — post-implementation review, performance review, or strategy project.', note: 'Scoped fee' },
+  { name: 'Ongoing advisory', desc: 'Retained arrangement for regular strategic and financial advice.', note: 'Monthly retainer' },
+];
+---
+<PageLayout title="Pricing" description="Transparent, fixed-fee options. Modest rates. Community and public-interest concessions.">
+  <section class="py-16 md:py-20">
+    <div class="mx-auto max-w-[1200px] px-6">
+      <h1 class="font-heading text-3xl font-bold text-charcoal md:text-4xl text-center">Pricing</h1>
+      <p class="mt-4 text-center text-lg text-grey-500 max-w-[540px] mx-auto">
+        Transparent fixed-fee options where possible. Modest rates. Community and public-interest concessions. Scoped to fit the problem, not the budget.
+      </p>
+      <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {tiers.map(t => (
+          <Card>
+            <h3 class="font-heading text-lg font-bold text-charcoal">{t.name}</h3>
+            <p class="mt-2 text-sm text-grey-500">{t.desc}</p>
+            <p class="mt-4 text-xs font-medium text-teal">{t.note}</p>
+          </Card>
+        ))}
+      </div>
+      <p class="mt-12 text-center text-sm text-grey-500">
+        All engagements begin with a free scoping conversation to understand your situation and agree on scope and fee.
+      </p>
+    </div>
+  </section>
+  <ContactCTA heading="Let's scope it" text="Book a short scoping call — no obligation, no pressure." />
+</PageLayout>
