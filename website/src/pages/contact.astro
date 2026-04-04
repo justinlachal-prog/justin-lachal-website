@@ -1,0 +1,137 @@
+---
+// website/src/pages/contact.astro
+import PageLayout from '../layouts/PageLayout.astro';
+---
+<PageLayout title="Contact" description="Get in touch with Justin — whether you need help with a decision, a review, a workshop, or a public-interest idea.">
+  <section class="py-16 md:py-20">
+    <div class="mx-auto max-w-[800px] px-6">
+      <h1 class="font-heading text-3xl font-bold text-charcoal md:text-4xl text-center">
+        Get in touch
+      </h1>
+      <p class="mt-4 text-center text-grey-500">
+        Select the option that best describes your enquiry, then fill in the details below.
+      </p>
+
+      <!-- Pathway buttons -->
+      <div class="mt-8 grid gap-3 sm:grid-cols-2" id="pathways">
+        <button data-pathway="decision" class="pathway-btn rounded-lg border-2 border-grey-200 p-4 text-left text-sm font-medium text-charcoal hover:border-teal transition-colors">
+          I need help with a decision
+        </button>
+        <button data-pathway="review" class="pathway-btn rounded-lg border-2 border-grey-200 p-4 text-left text-sm font-medium text-charcoal hover:border-teal transition-colors">
+          I need a review
+        </button>
+        <button data-pathway="workshop" class="pathway-btn rounded-lg border-2 border-grey-200 p-4 text-left text-sm font-medium text-charcoal hover:border-teal transition-colors">
+          I want a workshop or talk
+        </button>
+        <button data-pathway="public" class="pathway-btn rounded-lg border-2 border-grey-200 p-4 text-left text-sm font-medium text-charcoal hover:border-teal transition-colors">
+          I want to discuss a public-interest idea
+        </button>
+      </div>
+
+      <!-- Contact form -->
+      <form
+        action="https://formspree.io/f/YOUR_FORMSPREE_ID"
+        method="POST"
+        class="mt-10 space-y-6"
+      >
+        <input type="hidden" name="pathway" id="pathway-field" value="" />
+
+        <div>
+          <label for="description" class="block text-sm font-medium text-charcoal">
+            What decision or review is involved?
+          </label>
+          <textarea
+            id="description"
+            name="description"
+            rows="4"
+            required
+            class="mt-2 w-full rounded-md border border-grey-200 p-3 text-sm focus:border-teal focus:outline-none focus:ring-1 focus:ring-teal"
+          ></textarea>
+        </div>
+
+        <div>
+          <label for="organisation" class="block text-sm font-medium text-charcoal">
+            Organisation
+          </label>
+          <input
+            type="text"
+            id="organisation"
+            name="organisation"
+            class="mt-2 w-full rounded-md border border-grey-200 p-3 text-sm focus:border-teal focus:outline-none focus:ring-1 focus:ring-teal"
+          />
+        </div>
+
+        <div>
+          <label for="timing" class="block text-sm font-medium text-charcoal">
+            Timing / urgency
+          </label>
+          <input
+            type="text"
+            id="timing"
+            name="timing"
+            class="mt-2 w-full rounded-md border border-grey-200 p-3 text-sm focus:border-teal focus:outline-none focus:ring-1 focus:ring-teal"
+          />
+        </div>
+
+        <div>
+          <label for="documents" class="block text-sm font-medium text-charcoal">
+            What documents already exist?
+          </label>
+          <input
+            type="text"
+            id="documents"
+            name="documents"
+            class="mt-2 w-full rounded-md border border-grey-200 p-3 text-sm focus:border-teal focus:outline-none focus:ring-1 focus:ring-teal"
+          />
+        </div>
+
+        <div>
+          <label for="preference" class="block text-sm font-medium text-charcoal">
+            Preference
+          </label>
+          <select
+            id="preference"
+            name="preference"
+            class="mt-2 w-full rounded-md border border-grey-200 p-3 text-sm focus:border-teal focus:outline-none focus:ring-1 focus:ring-teal"
+          >
+            <option value="">Select...</option>
+            <option value="call">Call first</option>
+            <option value="written">Written response first</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="doc-links" class="block text-sm font-medium text-charcoal">
+            Link to relevant documents (e.g., Google Drive, Dropbox) — optional
+          </label>
+          <input
+            type="url"
+            id="doc-links"
+            name="doc-links"
+            class="mt-2 w-full rounded-md border border-grey-200 p-3 text-sm focus:border-teal focus:outline-none focus:ring-1 focus:ring-teal"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="w-full rounded-md bg-teal px-6 py-3 text-sm font-medium text-white hover:bg-teal-dark transition-colors"
+        >
+          Send enquiry
+        </button>
+      </form>
+    </div>
+  </section>
+</PageLayout>
+
+<script>
+  const buttons = document.querySelectorAll('.pathway-btn');
+  const field = document.getElementById('pathway-field') as HTMLInputElement;
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('border-teal', 'bg-teal-light'));
+      btn.classList.add('border-teal', 'bg-teal-light');
+      field.value = (btn as HTMLElement).dataset.pathway || '';
+    });
+  });
+</script>
