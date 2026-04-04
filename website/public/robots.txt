@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://justinlachal.github.io/website/sitemap-index.xml
+Sitemap: https://realmindsai.github.io/justin-lachal-website/sitemap-index.xml
