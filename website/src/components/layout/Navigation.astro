@@ -1,0 +1,29 @@
+---
+import { url } from '../../utils/url';
+
+const navItems = [
+  { label: 'Home', href: url('/') },
+  { label: 'Services', href: url('/services') },
+  { label: 'Spreadsheet Says', href: url('/spreadsheet-says') },
+  { label: 'Resources', href: url('/resources') },
+  { label: 'About', href: url('/about') },
+  { label: 'Contact', href: url('/contact') },
+];
+
+const currentPath = Astro.url.pathname;
+---
+<nav class="hidden md:flex items-center gap-8">
+  {navItems.map(item => (
+    <a
+      href={item.href}
+      class:list={[
+        'text-sm font-medium transition-colors',
+        currentPath === item.href || currentPath.startsWith(item.href + '/')
+          ? 'text-teal'
+          : 'text-charcoal hover:text-teal',
+      ]}
+    >
+      {item.label}
+    </a>
+  ))}
+</nav>

@@ -1,8 +1,14 @@
 ---
-// Stub — implemented in Task 5
+import Navigation from './Navigation.astro';
+import MobileMenu from './MobileMenu.astro';
+import { url } from '../../utils/url';
 ---
-<header class="border-b border-grey-200 bg-white">
-  <div class="mx-auto max-w-[1200px] px-6 py-4">
-    <span class="font-heading text-xl font-bold text-charcoal">Justin Lachal</span>
+<header class="sticky top-0 z-40 border-b border-grey-200 bg-white/95 backdrop-blur-sm">
+  <div class="relative mx-auto flex max-w-[1200px] items-center justify-between px-6 py-4">
+    <a href={url('/')} class="font-heading text-xl font-bold text-charcoal hover:text-teal transition-colors">
+      Justin Lachal
+    </a>
+    <Navigation />
+    <MobileMenu />
   </div>
 </header>
