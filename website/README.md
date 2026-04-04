@@ -1,43 +1,48 @@
-# Astro Starter Kit: Minimal
+# Justin Lachal -- Consulting Website
 
-```sh
-npm create astro@latest -- --template minimal
+Static website built with [Astro 5](https://astro.build) and [Tailwind CSS 4](https://tailwindcss.com). Hosted on GitHub Pages.
+
+## Development
+
+```bash
+cd website
+npm install
+npm run dev        # Start dev server at localhost:4321
+npm run build      # Build for production
+npm run preview    # Preview production build
+npm run test:e2e   # Run Playwright e2e tests
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Adding Content
 
-## 🚀 Project Structure
+All content lives in `src/content/` as Markdown files with frontmatter.
 
-Inside of your Astro project, you'll see the following folders and files:
+### Add a new Spreadsheet Says model
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+1. Create `src/content/models/your-model-name.md`
+2. Follow the frontmatter schema (see any existing model for reference)
+3. Set `sheetUrl` to a published Google Sheet embed URL
+4. Set `downloadUrl` to the direct download link
+5. Commit and push -- GitHub Actions deploys automatically
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+### Add a new resource
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+1. Create `src/content/resources/your-resource.md`
+2. Upload the downloadable file to `public/downloads/`
+3. Set `downloadUrl` in frontmatter to `/downloads/your-file.xlsx`
 
-Any static assets, like images, can be placed in the `public/` directory.
+### Add an article or case note
 
-## 🧞 Commands
+1. Create in `src/content/articles/` or `src/content/case-notes/`
+2. Follow the frontmatter schema
+3. Write the body in Markdown
 
-All commands are run from the root of the project, from a terminal:
+## Deployment
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Pushes to `main` trigger GitHub Actions to build and deploy to GitHub Pages.
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+To configure a custom domain:
+1. Add a `CNAME` file to `public/` with the domain name
+2. Update `site` in `astro.config.mjs`
+3. Remove the `base` property from `astro.config.mjs`
+4. Configure DNS per GitHub Pages docs
