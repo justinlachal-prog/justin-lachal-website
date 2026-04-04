@@ -1,0 +1,29 @@
+---
+import ContentCard from './ContentCard.astro';
+
+interface ContentItem {
+  title: string;
+  description: string;
+  href: string;
+  topics?: string[];
+  date?: Date;
+}
+
+interface Props {
+  items: ContentItem[];
+  heading?: string;
+}
+const { items, heading = 'Related' } = Astro.props;
+---
+{items.length > 0 && (
+  <section class="py-16">
+    <div class="mx-auto max-w-[1200px] px-6">
+      <h2 class="font-heading text-2xl font-bold text-charcoal mb-8">{heading}</h2>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {items.slice(0, 3).map(item => (
+          <ContentCard {...item} />
+        ))}
+      </div>
+    </div>
+  </section>
+)}

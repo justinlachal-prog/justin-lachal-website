@@ -1,0 +1,22 @@
+---
+import Button from '../ui/Button.astro';
+import { url } from '../../utils/url';
+
+interface Props {
+  heading?: string;
+  text?: string;
+}
+const {
+  heading = 'Bring me your decision',
+  text = 'Whether it\'s a costing question, a review, or a strategy problem — let\'s talk.',
+} = Astro.props;
+---
+<section class="bg-teal-light py-16">
+  <div class="mx-auto max-w-[1200px] px-6 text-center">
+    <h2 class="font-heading text-2xl font-bold text-charcoal">{heading}</h2>
+    <p class="mt-4 text-grey-500">{text}</p>
+    <div class="mt-8">
+      <Button href={url('/contact')}>Get in touch</Button>
+    </div>
+  </div>
+</section>

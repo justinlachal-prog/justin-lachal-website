@@ -1,0 +1,27 @@
+---
+import Card from '../ui/Card.astro';
+import Tag from '../ui/Tag.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  topics?: string[];
+  date?: Date;
+}
+const { title, description, href, topics = [], date } = Astro.props;
+---
+<Card href={href}>
+  {date && (
+    <p class="text-xs text-grey-500 mb-2">
+      {date.toLocaleDateString('en-AU', { year: 'numeric', month: 'long', day: 'numeric' })}
+    </p>
+  )}
+  <h3 class="font-heading text-xl font-bold text-charcoal">{title}</h3>
+  <p class="mt-2 text-grey-500 text-sm">{description}</p>
+  {topics.length > 0 && (
+    <div class="mt-4 flex flex-wrap gap-2">
+      {topics.map(t => <Tag label={t} />)}
+    </div>
+  )}
+</Card>
