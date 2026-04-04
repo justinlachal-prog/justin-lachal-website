@@ -1,1 +1,51 @@
 @import "tailwindcss";
+
+@theme {
+  --color-charcoal: oklch(0.279 0.006 247);
+  --color-cream: oklch(0.971 0.007 83);
+  --color-teal: oklch(0.467 0.089 168);
+  --color-teal-light: oklch(0.946 0.022 168);
+  --color-teal-dark: oklch(0.397 0.076 168);
+  --color-gold: oklch(0.674 0.117 75);
+  --color-gold-light: oklch(0.976 0.018 83);
+  --color-grey-200: oklch(0.918 0.004 264);
+  --color-grey-500: oklch(0.553 0.013 264);
+
+  --font-heading: 'Source Serif 4', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --font-size-sm: 0.8rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.563rem;
+  --font-size-2xl: 1.953rem;
+  --font-size-3xl: 2.441rem;
+  --font-size-4xl: 3.052rem;
+}
+
+html {
+  font-family: var(--font-body);
+  color: var(--color-charcoal);
+  background-color: var(--color-cream);
+  line-height: 1.65;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+a {
+  color: var(--color-teal);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-teal-dark);
+}
+
+.prose {
+  max-width: 65ch;
+}
