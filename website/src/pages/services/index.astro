@@ -1,0 +1,32 @@
+---
+// website/src/pages/services/index.astro
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Card from '../../components/ui/Card.astro';
+import SectionHeading from '../../components/ui/SectionHeading.astro';
+import ContactCTA from '../../components/shared/ContactCTA.astro';
+import { url } from '../../utils/url';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+---
+<PageLayout title="Services" description="Independent accounting, costing and strategy advice for consequential decisions.">
+  <section class="py-16 md:py-20">
+    <div class="mx-auto max-w-[1200px] px-6">
+      <SectionHeading
+        title="Services"
+        subtitle="Six areas of independent advice — each focused on helping you make better decisions."
+      />
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {services.map(s => (
+          <Card href={url(`/services/${s.id}`)}>
+            <h3 class="font-heading text-lg font-bold text-charcoal">{s.data.title}</h3>
+            <p class="mt-2 text-sm text-grey-500">{s.data.description}</p>
+            <p class="mt-4 text-xs text-grey-500"><strong>For:</strong> {s.data.forWhom}</p>
+            <p class="mt-4 text-sm font-medium text-teal">Learn more &rarr;</p>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+  <ContactCTA />
+</PageLayout>
