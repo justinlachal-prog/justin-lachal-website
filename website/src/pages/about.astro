@@ -4,7 +4,7 @@ import PageLayout from '../layouts/PageLayout.astro';
 import Button from '../components/ui/Button.astro';
 import { url } from '../utils/url';
 ---
-<PageLayout title="About" description="Justin Lachal — accountant, professor, adviser. 30 years of helping people make better financial decisions.">
+<PageLayout title="About" description="Justin Lachal — Fellow Chartered Accountant with 20+ years in finance, former KPMG and ANZ, board director, and independent adviser.">
   <article>
     <!-- Hero -->
     <section class="py-16 md:py-20">
@@ -12,27 +12,42 @@ import { url } from '../utils/url';
         <div class="flex flex-col gap-12 md:flex-row items-start">
           <div class="flex-1">
             <h1 class="font-heading text-3xl font-bold text-charcoal md:text-4xl">
-              Accountant. Professor. Adviser.
+              Accountant. Adviser. Board Director.
             </h1>
             <div class="mt-8 space-y-4 text-grey-500 max-w-[600px]">
-              <p>[PLACEHOLDER: Justin's story — the accountant years. Career narrative describing his early career and building deep expertise in financial analysis, costing, and commercial decision-making.]</p>
-              <p>[PLACEHOLDER: The professor years. His time at La Trobe University teaching accounting, developing a reputation for making finance accessible and practical.]</p>
-              <p>[PLACEHOLDER: The adviser years. Why he moved into independent consulting, his philosophy of transparency and generosity, and what drives him today.]</p>
+              <p>Justin started his career at KPMG, where he built a foundation in financial analysis, audit methodology, and commercial advisory work. He went on to hold senior roles at the ANZ Banking Group and Jones Lang LaSalle, working across banking, property, and corporate finance with clients including Telstra, ANZ, and Australia Post.</p>
+              <p>That corporate grounding led to a different kind of challenge: as General Manager of the Anglican Diocese of Melbourne, Justin applied rigorous financial thinking to an organisation where decisions carry weight beyond the balance sheet. Managing property portfolios, parish finances, and institutional governance sharpened his belief that good financial tools should serve the people making decisions — not the other way around.</p>
+              <p>Today Justin works independently, bringing the same discipline to boards, councils, NFPs, and small organisations that need clear-headed financial advice without the overhead of a large firm. He sits on the board of Jesuit Social Services and Sunraysia Institute of TAFE (SuniTAFE), and holds a deep interest in how public and community organisations can make better decisions with limited resources.</p>
             </div>
           </div>
-          <div class="w-64 h-80 rounded-lg bg-grey-200 flex items-center justify-center text-grey-500 text-sm shrink-0">
-            [PLACEHOLDER: Portrait]
-          </div>
+          <img
+            src={url('/images/justin-headshot.jpg')}
+            alt="Justin Lachal"
+            class="w-64 h-80 rounded-lg object-cover object-top shrink-0"
+          />
         </div>
       </div>
     </section>
 
-    <!-- Why free tools -->
+    <!-- Qualifications -->
     <section class="bg-white py-16">
+      <div class="mx-auto max-w-[1200px] px-6">
+        <h2 class="font-heading text-2xl font-bold text-charcoal">Qualifications</h2>
+        <ul class="mt-6 space-y-2 max-w-[600px] text-grey-500">
+          <li class="flex items-start gap-2"><span class="text-teal mt-1">&#10003;</span> Fellow of Chartered Accountants Australia and New Zealand (FCA)</li>
+          <li class="flex items-start gap-2"><span class="text-teal mt-1">&#10003;</span> Master of Applied Finance</li>
+          <li class="flex items-start gap-2"><span class="text-teal mt-1">&#10003;</span> Master of Business Administration (MBA)</li>
+          <li class="flex items-start gap-2"><span class="text-teal mt-1">&#10003;</span> Master of Business Information Technology</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Why free tools -->
+    <section class="py-16">
       <div class="mx-auto max-w-[1200px] px-6">
         <h2 class="font-heading text-2xl font-bold text-charcoal">Why I give tools away for free</h2>
         <p class="mt-4 text-grey-500 max-w-[600px]">
-          [PLACEHOLDER: Justin's explanation of his open-source consulting philosophy — the tools are free because better decisions shouldn't be trapped behind a sales conversation. If you want help interpreting the results or adapting the model, that's when you hire me.]
+          Better decisions should not be trapped behind a sales conversation. The models, checklists, and frameworks on this site are designed to be useful on their own. Download them. Adapt them. Use them. If you want help interpreting the results, testing the assumptions, or adapting a model to your specific situation — that is when you hire me.
         </p>
       </div>
     </section>
@@ -70,9 +85,16 @@ import { url } from '../utils/url';
     <section class="bg-teal-light py-16">
       <div class="mx-auto max-w-[1200px] px-6">
         <h2 class="font-heading text-2xl font-bold text-charcoal">Ethics and independence</h2>
-        <p class="mt-4 text-grey-500 max-w-[600px]">
-          [PLACEHOLDER: Justin's commitment to the principles of APES 110 — integrity, objectivity, professional competence and due care, confidentiality, and professional behaviour — translated into plain English.]
-        </p>
+        <div class="mt-6 space-y-4 text-grey-500 max-w-[600px]">
+          <p>As a Fellow of Chartered Accountants Australia and New Zealand, I work under the profession's Code of Ethics. In plain terms, that means:</p>
+          <ul class="space-y-2 ml-4">
+            <li><strong>Integrity</strong> — I am straightforward and honest in all professional relationships.</li>
+            <li><strong>Objectivity</strong> — I do not let bias, conflict of interest, or outside pressure override my professional judgment.</li>
+            <li><strong>Competence</strong> — I only take on work I am qualified and equipped to do well.</li>
+            <li><strong>Confidentiality</strong> — Information shared with me stays confidential unless you agree otherwise.</li>
+            <li><strong>Independence</strong> — I have no vendor relationships, referral arrangements, or financial interests that could colour my advice.</li>
+          </ul>
+        </div>
       </div>
     </section>
 
