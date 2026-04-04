@@ -71,7 +71,9 @@ Build a professional consulting website for Justin Lachal, a fellow-qualified ac
 | Icons | Lucide | Minimal, consistent. |
 | Hosting | GitHub Pages | Free, git-push deploys via GitHub Actions, custom domain support. |
 | CI/CD | GitHub Actions | Build Astro on push to main, deploy to GitHub Pages. |
-| Contact form | Formspree (free tier) | 50 submissions/month — sufficient for expected volume. No backend needed. |
+| Contact form | Formspree (free tier) | 50 submissions/month — sufficient for expected volume. No backend needed. Free tier does not support file uploads — see Section 6.10. |
+
+**GitHub Pages deployment note:** `astro.config.mjs` must set `site` to the final URL. If deploying to a project repo without a custom domain (e.g., `https://<user>.github.io/<repo>/`), also set `base: '/<repo>'`. The GitHub Actions workflow must handle both scenarios. Once a custom domain is configured via the repo's Pages settings and CNAME file, `base` should be removed.
 | Spreadsheet models | Embedded Google Sheets (view-only) + download links | Justin already works in spreadsheets. No need to rebuild as web apps. |
 | Future CMS | Decap CMS (optional, add later) | Web UI for Justin to add content without touching code. |
 
@@ -88,8 +90,9 @@ src/content/
   resources/          # Checklists, templates, worksheets
   case-notes/         # De-identified case studies
   articles/           # Essays, public thinking
-  workshops/          # Talks, events, seminars
 ```
+
+Note: workshops/talks content lives on the static `/services/workshops` page, not in a separate content collection. A `workshops/` collection can be added later if Justin starts publishing enough events to warrant a listing page.
 
 ### Frontmatter Schema (common fields)
 
@@ -141,8 +144,9 @@ caveats: string        # What it cannot say
 **resources:**
 ```yaml
 downloadUrl: string    # File download link
-gated: boolean         # Email-gated or open (default: false)
 ```
+
+Note: Email-gated downloads are a future enhancement (requires paid Formspree or a different service). At launch, all resources are freely downloadable.
 
 ---
 
@@ -175,8 +179,10 @@ Pricing | FAQ | Capability Statement (PDF) | Privacy | Terms
 /spreadsheet-says              Hub listing all models
 /spreadsheet-says/[slug]       Individual model page
 /resources                     Filterable library of all downloadable resources
-/public-work                   Essays, case notes, public thinking
-/public-work/[slug]            Individual article or case note
+/public-work                   Essays and public thinking
+/public-work/[slug]            Individual article (from articles/ collection)
+/case-notes                    De-identified case studies
+/case-notes/[slug]             Individual case note (from case-notes/ collection)
 /pricing                       Fixed-fee pathways
 /contact                       Intake form with 4 pathways
 /faq                           Common questions
@@ -356,9 +362,13 @@ Top-level nav item. The site's most distinctive feature.
 
 ### 6.6 Resources (Library)
 
-Searchable, filterable by topic, audience, and format.
+Filterable by topic, audience, and format. All resources are direct downloads (no individual detail pages).
 
-Categories: models, templates, checklists, articles, teaching notes, reading lists.
+**Filtering implementation:** Client-side JavaScript using an Astro `<script>` tag (no framework island needed). Tag/pill buttons filter a grid of resource cards by toggling CSS visibility. Simple, no dependencies.
+
+Categories: models, templates, checklists, teaching notes, reading lists.
+
+Note: "articles" are not resources — they live in the `articles/` collection and render at `/public-work/[slug]`. The resource library is strictly for downloadable files.
 
 **Launch resources:**
 - One-page financial model template
@@ -371,15 +381,14 @@ Categories: models, templates, checklists, articles, teaching notes, reading lis
 - Program benefits register
 - Sample assumptions sheet
 
-Gating: most open, deeper packs optionally email-gated via Formspree.
+All resources are freely downloadable at launch. Email-gated downloads are a future enhancement (see Section 12).
 
-### 6.7 Public Work
+### 6.7 Public Work (Articles)
 
-Essays, case notes, and public thinking. Organized as a library (filterable, tagged), not a date-ordered blog.
+Essays and public thinking from the `articles/` content collection. Organized as a library (filterable, tagged), not a date-ordered blog. Renders at `/public-work/` and `/public-work/[slug]`.
 
 Includes:
 - Current questions Justin is exploring
-- De-identified case reflections
 - Public-interest project notes
 - "What I'm thinking about now"
 
@@ -387,11 +396,13 @@ Key line: "I publish methods and models because better decisions should not be t
 
 ### 6.8 Case Notes
 
-Written as mini teaching cases, not sales blurbs.
+Written as mini teaching cases, not sales blurbs. Separate content collection (`case-notes/`) with its own URL namespace: `/case-notes/` and `/case-notes/[slug]`.
 
 Structure: context → question → what we looked at → what changed → lesson.
 
 De-identified or illustrative where confidentiality requires.
+
+The home page "Public work preview" section pulls from both `articles/` and `case-notes/` collections, sorted by date.
 
 **Launch with 3:**
 1. A costing decision
@@ -430,7 +441,7 @@ Intake-style form, not a generic contact form.
 - Timing / urgency
 - What documents already exist
 - Preference: call first or written response first
-- File upload (via Formspree)
+- Optional: "Link to relevant documents (e.g., Google Drive, Dropbox)" (text field — Formspree free tier does not support file uploads)
 
 ### 6.11 FAQ
 
@@ -439,6 +450,8 @@ Common questions about how Justin works, what he charges, what industries he cov
 ---
 
 ## 7. Design System
+
+**Tailwind 4 note:** There is no `tailwind.config.mjs`. Tailwind CSS 4 uses CSS-native configuration via `@theme` directives in `global.css`. Custom color tokens, fonts, and spacing are defined there, not in a JS config file. The Astro integration is `@tailwindcss/vite` (the old `@astrojs/tailwind` is deprecated).
 
 ### Color Palette
 
@@ -538,7 +551,6 @@ justin-lachal-website/
 │   │       ├── RelatedContent.astro
 │   │       └── ContactCTA.astro
 │   ├── content/
-│   │   ├── config.ts                # Astro content collection schemas
 │   │   ├── services/
 │   │   │   ├── costing.md
 │   │   │   ├── reviews.md
@@ -554,8 +566,7 @@ justin-lachal-website/
 │   │   │   └── property-hold-vs-sell.md
 │   │   ├── resources/
 │   │   ├── case-notes/
-│   │   ├── articles/
-│   │   └── workshops/
+│   │   └── articles/
 │   ├── layouts/
 │   │   ├── BaseLayout.astro         # HTML shell, meta, fonts
 │   │   ├── PageLayout.astro         # Standard page with header/footer
@@ -572,15 +583,19 @@ justin-lachal-website/
 │   │   │   └── [slug].astro         # Individual model pages
 │   │   ├── resources.astro
 │   │   ├── public-work/
-│   │   │   ├── index.astro          # Articles + case notes listing
-│   │   │   └── [slug].astro         # Individual article/case note
+│   │   │   ├── index.astro          # Articles listing
+│   │   │   └── [slug].astro         # Individual article
+│   │   ├── case-notes/
+│   │   │   ├── index.astro          # Case notes listing
+│   │   │   └── [slug].astro         # Individual case note
 │   │   ├── pricing.astro
 │   │   ├── contact.astro
 │   │   └── faq.astro
 │   └── styles/
 │       └── global.css               # Tailwind base + custom tokens
+├── src/
+│   └── content.config.ts           # Astro 5 content collection schemas (must be at src/ root)
 ├── astro.config.mjs
-├── tailwind.config.mjs
 ├── package.json
 ├── tsconfig.json
 └── README.md
@@ -646,3 +661,5 @@ LinkedIn marketing: weekly "Spreadsheet Says" series posts — screenshot of a m
 - Testimonials section (after first engagements)
 - Booking calendar integration
 - Analytics (Plausible or Fathom — privacy-respecting)
+- Email-gated resource downloads (requires paid form service or custom solution)
+- File upload on contact form (requires paid Formspree tier)
