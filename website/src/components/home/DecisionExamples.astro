@@ -1,20 +1,20 @@
 ---
 // website/src/components/home/DecisionExamples.astro
 const questions = [
-  'Caravan or motels?',
-  'Outsource finance or build the team?',
-  'Buy the software or wait?',
-  'Did the project deliver its promised benefits?',
-  'Which measures actually matter?',
+  { text: 'Caravan or motels?', href: '/spreadsheet-says/caravan-vs-motels' },
+  { text: 'Outsource finance or build the team?', href: '/spreadsheet-says/outsource-vs-internal' },
+  { text: 'Buy the software or wait?', href: '/spreadsheet-says/buy-now-vs-wait' },
+  { text: 'Did the project deliver its promised benefits?', href: '/case-notes/post-implementation-review-example' },
+  { text: 'Which measures actually matter?', href: '/services/performance' },
 ];
 ---
 <section class="bg-white py-12">
   <div class="mx-auto max-w-[1200px] px-6">
     <div class="flex flex-wrap justify-center gap-3">
       {questions.map(q => (
-        <span class="rounded-full border border-grey-200 bg-cream px-5 py-2 text-sm text-charcoal font-medium">
-          {q}
-        </span>
+        <a href={q.href} class="rounded-full border border-grey-200 bg-cream px-5 py-2 text-sm text-charcoal font-medium hover:bg-charcoal hover:text-white transition-colors duration-200 no-underline">
+          {q.text}
+        </a>
       ))}
     </div>
   </div>
