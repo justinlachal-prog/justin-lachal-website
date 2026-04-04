@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import ContentCard from '../../components/shared/ContentCard.astro';
+import SectionHeading from '../../components/ui/SectionHeading.astro';
+import { url } from '../../utils/url';
+
+const caseNotes = (await getCollection('case-notes')).sort((a, b) =>
+  b.data.date.getTime() - a.data.date.getTime()
+);
+---
+<PageLayout title="Case Notes" description="De-identified case studies — each written as a teaching case with context, question, findings, and lessons.">
+  <section class="py-16 md:py-20">
+    <div class="mx-auto max-w-[1200px] px-6">
+      <SectionHeading
+        title="Case Notes"
+        subtitle="Real engagements, de-identified and written as teaching cases."
+      />
+      {caseNotes.length > 0 ? (
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {caseNotes.map(c => (
+            <ContentCard
+              title={c.data.title}
+              description={c.data.description}
+              href={url(`/case-notes/${c.id}`)}
+              topics={c.data.topics}
+              date={c.data.date}
+            />
+          ))}
+        </div>
+      ) : (
+        <p class="text-center text-grey-500">Case notes coming soon.</p>
+      )}
+    </div>
+  </section>
+</PageLayout>

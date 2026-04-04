@@ -1,0 +1,29 @@
+---
+// website/src/layouts/ContentLayout.astro
+import PageLayout from './PageLayout.astro';
+import { url } from '../utils/url';
+
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  backLink: string;
+  backLabel: string;
+}
+
+const { title, description, date, backLink, backLabel } = Astro.props;
+---
+<PageLayout title={title} description={description}>
+  <article class="py-16">
+    <div class="mx-auto max-w-[800px] px-6">
+      <a href={url(backLink)} class="text-sm text-teal hover:text-teal-dark">&larr; {backLabel}</a>
+      <h1 class="mt-6 font-heading text-3xl font-bold text-charcoal md:text-4xl">{title}</h1>
+      <p class="mt-2 text-sm text-grey-500">
+        {date.toLocaleDateString('en-AU', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </p>
+      <div class="mt-10 prose max-w-none">
+        <slot />
+      </div>
+    </div>
+  </article>
+</PageLayout>

@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import ContentCard from '../../components/shared/ContentCard.astro';
+import SectionHeading from '../../components/ui/SectionHeading.astro';
+import { url } from '../../utils/url';
+
+const articles = (await getCollection('articles')).sort((a, b) =>
+  b.data.date.getTime() - a.data.date.getTime()
+);
+---
+<PageLayout title="Public Work" description="Essays, notes, and public thinking on finance, decisions, and strategy.">
+  <section class="py-16 md:py-20">
+    <div class="mx-auto max-w-[1200px] px-6">
+      <SectionHeading
+        title="Public Work"
+        subtitle="I publish methods and models because better decisions should not be trapped behind a sales conversation."
+      />
+      {articles.length > 0 ? (
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {articles.map(a => (
+            <ContentCard
+              title={a.data.title}
+              description={a.data.description}
+              href={url(`/public-work/${a.id}`)}
+              topics={a.data.topics}
+              date={a.data.date}
+            />
+          ))}
+        </div>
+      ) : (
+        <p class="text-center text-grey-500">Articles coming soon.</p>
+      )}
+    </div>
+  </section>
+</PageLayout>
