@@ -1,0 +1,33 @@
+---
+// website/src/pages/spreadsheet-says/index.astro
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import ContentCard from '../../components/shared/ContentCard.astro';
+import SectionHeading from '../../components/ui/SectionHeading.astro';
+import { url } from '../../utils/url';
+
+const models = (await getCollection('models')).sort((a, b) =>
+  b.data.date.getTime() - a.data.date.getTime()
+);
+---
+<PageLayout title="Spreadsheet Says" description="Free financial models you can download, adapt, and use. Each shows the assumptions, the verdict, and what the spreadsheet cannot tell you.">
+  <section class="py-16 md:py-20">
+    <div class="mx-auto max-w-[1200px] px-6">
+      <SectionHeading
+        title="Spreadsheet Says"
+        subtitle="Run the numbers. Then talk about what the numbers miss."
+      />
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {models.map(m => (
+          <ContentCard
+            title={m.data.title}
+            description={m.data.description}
+            href={url(`/spreadsheet-says/${m.id}`)}
+            topics={m.data.topics}
+            date={m.data.date}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</PageLayout>
