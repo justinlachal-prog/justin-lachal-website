@@ -1,6 +1,8 @@
 # Justin Lachal -- Consulting Website
 
-Static website built with [Astro 5](https://astro.build) and [Tailwind CSS 4](https://tailwindcss.com). Hosted on GitHub Pages.
+Static website built with [Astro 5](https://astro.build) and [Tailwind CSS 4](https://tailwindcss.com). Hosted on [GitHub Pages](https://justinlachal-prog.github.io/justin-lachal-website).
+
+**Repo:** https://github.com/justinlachal-prog/justin-lachal-website
 
 ## Development
 
