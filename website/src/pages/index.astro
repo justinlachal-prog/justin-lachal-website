@@ -1,26 +1,74 @@
 ---
 // website/src/pages/index.astro
 import PageLayout from '../layouts/PageLayout.astro';
-import Hero from '../components/home/Hero.astro';
-import CredibilityStrip from '../components/ui/CredibilityStrip.astro';
-import DecisionExamples from '../components/home/DecisionExamples.astro';
-import ServicePillars from '../components/home/ServicePillars.astro';
-import SpreadsheetTeaser from '../components/home/SpreadsheetTeaser.astro';
-import HowHeWorks from '../components/home/HowHeWorks.astro';
-import ResourcesPreview from '../components/home/ResourcesPreview.astro';
-import PublicWorkPreview from '../components/home/PublicWorkPreview.astro';
-import PricingPhilosophy from '../components/home/PricingPhilosophy.astro';
 import ContactCTA from '../components/shared/ContactCTA.astro';
+import { getCollection } from 'astro:content';
+import { url } from '../utils/url';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+
+const iconMap: Record<string, string> = {
+  calculator: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/><line x1="8" y1="18" x2="12" y2="18"/></svg>`,
+  search: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>`,
+  'clipboard-check': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="m9 12 2 2 4-4"/></svg>`,
+  compass: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>`,
+  'building-2': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>`,
+  presentation: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>`,
+};
 ---
-<PageLayout title="Home" description="Justin Lachal — better financial judgment for real-world decisions. Independent accounting, costing and strategy advice.">
-  <Hero />
-  <CredibilityStrip />
-  <DecisionExamples />
-  <ServicePillars />
-  <SpreadsheetTeaser />
-  <HowHeWorks />
-  <ResourcesPreview />
-  <PublicWorkPreview />
-  <PricingPhilosophy />
+<PageLayout title="Justin Lachal" description="Justin Lachal — better financial judgment for real-world decisions. Independent accounting, costing and strategy advice.">
+
+  <!-- Hero -->
+  <section class="py-16 md:py-20 border-b border-grey-200">
+    <div class="mx-auto max-w-[1200px] px-6">
+      <div class="flex flex-col items-center gap-8 md:flex-row md:items-center md:gap-16">
+        <!-- Photo placeholder -->
+        <div class="shrink-0">
+          <div class="w-44 h-44 md:w-52 md:h-52 rounded-full bg-grey-200 flex items-center justify-center text-grey-500 text-sm font-medium">
+            [Photo]
+          </div>
+        </div>
+        <!-- Text -->
+        <div class="text-center md:text-left">
+          <h1 class="font-heading text-3xl font-bold text-charcoal md:text-4xl leading-tight">
+            Better financial judgment<br class="hidden md:block" /> for real-world decisions
+          </h1>
+          <p class="mt-4 text-grey-500 max-w-[480px] mx-auto md:mx-0">
+            Work with Justin — independent accounting, costing and strategy advice for boards, councils, NFPs and organisations.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-4 justify-center md:justify-start">
+            <a href={url('/contact')} class="inline-flex items-center justify-center rounded-md bg-teal px-6 py-3 text-sm font-medium text-white hover:bg-teal-dark transition-colors">
+              Get in touch
+            </a>
+            <a href={url('/about')} class="inline-flex items-center justify-center rounded-md border-2 border-teal px-6 py-3 text-sm font-medium text-teal hover:bg-teal-light transition-colors">
+              About Justin
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Six services -->
+  <section class="py-16 md:py-20">
+    <div class="mx-auto max-w-[1200px] px-6">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {services.map(s => (
+          <a
+            href={url(`/services/${s.id}`)}
+            class="group flex flex-col rounded-2xl border-2 border-grey-200 bg-white p-8 hover:border-teal hover:shadow-md transition-all"
+          >
+            <div class="text-teal" set:html={iconMap[s.data.icon] ?? ''} />
+            <h2 class="mt-4 font-heading text-lg font-bold text-charcoal group-hover:text-teal transition-colors">
+              {s.data.title}
+            </h2>
+            <p class="mt-2 text-sm text-grey-500 flex-1">{s.data.description}</p>
+            <span class="mt-6 text-sm font-medium text-teal">Learn more →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <ContactCTA />
 </PageLayout>

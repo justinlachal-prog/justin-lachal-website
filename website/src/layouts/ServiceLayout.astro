@@ -2,6 +2,7 @@
 // website/src/layouts/ServiceLayout.astro
 import PageLayout from './PageLayout.astro';
 import ContactCTA from '../components/shared/ContactCTA.astro';
+import { getCollection } from 'astro:content';
 import { url } from '../utils/url';
 
 interface Props {
@@ -9,9 +10,22 @@ interface Props {
   description: string;
   headline: string;
   whatYouGet: string[];
+  topics?: string[];
 }
 
-const { title, description, headline, whatYouGet } = Astro.props;
+const { title, description, headline, whatYouGet, topics = [] } = Astro.props;
+
+// Find related resources that share at least one topic with this service
+const allResources = await getCollection('resources');
+const relatedResources = topics.length > 0
+  ? allResources.filter(r => (r.data.topics || []).some((t: string) => topics.includes(t)))
+  : [];
+
+// Find related Spreadsheet Says models that share at least one topic
+const allModels = await getCollection('models');
+const relatedModels = topics.length > 0
+  ? allModels.filter(m => (m.data.topics || []).some((t: string) => topics.includes(t)))
+  : [];
 ---
 <PageLayout title={title} description={description}>
   <article>
@@ -53,6 +67,56 @@ const { title, description, headline, whatYouGet } = Astro.props;
         </div>
       </div>
     </section>
+
+    <!-- Related resources -->
+    {relatedResources.length > 0 && (
+      <section class="py-16 bg-white border-t border-grey-200">
+        <div class="mx-auto max-w-[1200px] px-6">
+          <h2 class="font-heading text-2xl font-bold text-charcoal">Free resources</h2>
+          <p class="mt-2 text-grey-500">Download and use these tools yourself, or bring Justin in to help interpret the results.</p>
+          <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {relatedResources.map(r => (
+              <div class="rounded-lg border border-grey-200 bg-white p-6">
+                <span class="inline-block rounded-full bg-gold-light px-3 py-1 text-xs font-medium text-gold mb-3">
+                  {r.data.format}
+                </span>
+                <h3 class="font-heading text-base font-bold text-charcoal">{r.data.title}</h3>
+                <p class="mt-2 text-sm text-grey-500">{r.data.description}</p>
+                {r.data.downloadUrl ? (
+                  <a href={r.data.downloadUrl} class="mt-4 inline-block text-sm font-medium text-teal hover:text-teal-dark">
+                    Download ↓
+                  </a>
+                ) : (
+                  <span class="mt-4 inline-block text-sm text-grey-500">[Coming soon]</span>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Related Spreadsheet Says models -->
+    {relatedModels.length > 0 && (
+      <section class="py-16 bg-teal-light border-t border-grey-200">
+        <div class="mx-auto max-w-[1200px] px-6">
+          <h2 class="font-heading text-2xl font-bold text-charcoal">Spreadsheet Says</h2>
+          <p class="mt-2 text-grey-500">Run the numbers on these decision models — free to download and adapt.</p>
+          <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {relatedModels.map(m => (
+              <a
+                href={url(`/spreadsheet-says/${m.id}`)}
+                class="group rounded-lg border border-grey-200 bg-white p-6 hover:border-teal hover:shadow-sm transition-all block"
+              >
+                <h3 class="font-heading text-base font-bold text-charcoal group-hover:text-teal transition-colors">{m.data.title}</h3>
+                <p class="mt-2 text-sm text-grey-500">{m.data.description}</p>
+                <span class="mt-4 inline-block text-sm font-medium text-teal">View model →</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
 
     <ContactCTA heading="Ready to talk?" text="Book a short scoping call to discuss your situation." />
   </article>
