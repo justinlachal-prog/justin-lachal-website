@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://realmindsai.github.io',
+  site: 'https://justinlachal-prog.github.io',
   base: '/justin-lachal-website',
 
   vite: {
